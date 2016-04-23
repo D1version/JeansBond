@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name = "com.bondar.Client" table = "clients" >
+        <id column = "ID" name = "ID" type = "java.lang.Integer">
+            <generator class = "increment"/>
+        </id>
+        <property column = "Name" name = "name" type = "java.lang.String"/>
+        <property column="SecondName" name="secondName" type="java.lang.String"/>
+        <property column="RegistrationDate" name="registrationDate" type="java.lang.String"/>
+        <property column="CardNumber" name="cardNumber" type="java.lang.String"/>
+        <property column="PhoneNumber" name="phoneNumber" type="java.lang.String"/>
+        <property column="Amount" name="amount" type="java.lang.Integer"/>
+
+    </class>
+</hibernate-mapping>
