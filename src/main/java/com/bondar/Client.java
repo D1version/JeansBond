@@ -1,5 +1,8 @@
 package com.bondar;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by Влад on 20.04.2016.
  */
@@ -10,10 +13,28 @@ public class Client {
     public String birthday = null;
     public String registrationDate = null;
     public String phoneNumber = null;
+    public String viber = null;
     public String cardNumber = null;
     public String email = null;
     public int amount;
     public int counter = 1;
+    private Set sales = new HashSet();
+
+    public Set getSales() {
+        return sales;
+    }
+
+    public void setSales(Set sales) {
+        this.sales = sales;
+    }
+
+    public String getViber() {
+        return viber;
+    }
+
+    public void setViber(String viber) {
+        this.viber = viber;
+    }
 
     @Override
     public String toString() {
@@ -23,7 +44,8 @@ public class Client {
                 ", birthday='" + birthday + '\'' +
                 ", registrationDate='" + registrationDate + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", CardNumber='" + cardNumber + '\'' +
+                ", viber='" + viber + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", amount=" + amount +
                 ", counter=" + counter +

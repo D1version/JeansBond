@@ -9,6 +9,7 @@
         <servlet-name>MainLogic</servlet-name>
         <servlet-class>com.bondar.Servlet</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>MainLogic</servlet-name>
         <url-pattern>/check</url-pattern>

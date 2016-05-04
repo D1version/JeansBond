@@ -2,9 +2,9 @@ package com.bondar.DAO;
 
 import com.bondar.Client;
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
-import javax.swing.*;
 import java.util.Collection;
 
 /**
@@ -22,7 +22,7 @@ public class ClientDAOImpl {
             session.save(client);
             session.getTransaction().commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Ошибка при добавлении клиента!", JOptionPane.OK_OPTION);
+
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();
@@ -38,7 +38,7 @@ public class ClientDAOImpl {
             session.update(client);
             session.getTransaction().commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Ошибка при обновлении клиента!", JOptionPane.OK_OPTION);
+
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();
@@ -54,7 +54,7 @@ public class ClientDAOImpl {
             session.delete(client);
             session.getTransaction().commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Ошибка при удалении клиента!", JOptionPane.OK_OPTION);
+
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();
@@ -70,7 +70,7 @@ public class ClientDAOImpl {
             client = (Client) session.load(Client.class,id);
             Hibernate.initialize(client);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Ошибка при поиске по ID!", JOptionPane.OK_OPTION);
+
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();
@@ -86,13 +86,33 @@ public class ClientDAOImpl {
             session = HibernateSession.getSessionFactory().openSession();
             clients = session.createCriteria(Client.class).list();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Ошибка!", JOptionPane.OK_OPTION);
+
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();
             }
         }
         return clients;
+    }
+
+    public Client getClientByCardNumber(int cardNumber){
+        Session session = null;
+        Client client = null;
+        try{
+            session = HibernateSession.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createSQLQuery(String.format("SELECT * FROM clients WHERE CardNumber = %d", cardNumber)).addEntity(Client.class);
+            client = (Client) query.uniqueResult();
+            Hibernate.initialize(client);
+            session.getTransaction().commit();
+        } catch (Exception e){
+
+        } finally {
+            if(session != null && session.isOpen()){
+                session.close();
+            }
+        }
+        return client;
     }
 
 }
