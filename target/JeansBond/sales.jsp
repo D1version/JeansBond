@@ -48,8 +48,8 @@
     for (int j = 0; j < rows.length; j++) {
     Client client = Factory.getInstance().getClientDAO().getClientByID(Integer.parseInt(rows[j]));
     Set set = client.getSales();
-    ArrayList<Sales> sales = new ArrayList<Sales>();
-    sales.addAll(set);
+      ArrayList<Sales> sales = new ArrayList<Sales>();
+      sales.addAll(set);
   %>
   <table border="2" align="center">
     <tbody>
@@ -62,7 +62,6 @@
   <table border="5" align="center">
     <tbody>
     <tr>
-      <td>ID</td>
       <td>Дата продажи</td>
       <td>Сумма</td>
       <td>№ джинса</td>
@@ -74,7 +73,6 @@
 
         %>
     <tr>
-      <td><%= sales.get(i).getID()%> </td>
       <td><%= sales.get(i).getDateOfSale()%> </td>
       <td><%= sales.get(i).getAmount()%> </td>
       <td><%= sales.get(i).getJeansNumber()%> </td>

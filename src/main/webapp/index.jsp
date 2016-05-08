@@ -44,11 +44,11 @@
     <input type="submit" name="EDIT" value="Добавить/Редактировать" size="50"/>
     <input type="submit" name="SALES" value="История продаж" size="50"/>
     <input type="submit" name="DELETE" onClick="return confirm('Вы подтверждаете удаление?');" value="Удалить" size="50"/>
+    <input type="submit" name="BACKUP" value="Сохранить БД" size="50"/>
   </div>
-<table border="5" align="center">
+<table border="2" align="center">
   <tbody>
   <tr>
-    <td>ID</td>
     <td>Имя</td>
     <td>Фамилия</td>
     <td>Дата рождения</td>
@@ -66,7 +66,6 @@
       for (int i = 0; i <clients.size() ; i++){
         int id = clients.get(i).getID();%>
     <tr>
-      <td><%= id%> </td>
       <td><%= clients.get(i).getName()%></td>
       <td><%= clients.get(i).getSecondName()%></td>
       <td><%= clients.get(i).getBirthday()%></td>
@@ -103,6 +102,8 @@
   String jeansNumber = (String) request.getAttribute("jeansNumberProblem");
   String jeansSize = (String) request.getAttribute("jeansSizeProblem");
   String saler = (String) request.getAttribute("salerProblem");
+  String backup = (String) request.getAttribute("BACKUP");
+  String cardAvailable = (String) request.getAttribute("cardAvailable");
 
   if (name == "problem"){
 %>
@@ -168,6 +169,19 @@
 %>
 <script language="JavaScript">alert("Поле \"Продал\" может содержать только буквы!")</script>
 <%
+} else if (backup == "problem"){
+%>
+<script language="JavaScript">alert("Не удалось сохранить БД на компьютер!")</script>
+<%
+} else if (backup == "OK"){
+%>
+<script language="JavaScript">alert("БД успешно сохранена в файл \"backup.sql\"!")</script>
+<%
+} else if (cardAvailable == "problem"){
+%>
+<script language="JavaScript">alert("Клиент с такой картой уже есть в БД!")</script>
+<%
+
 }
 %>
 </body>

@@ -18,8 +18,8 @@ public class Validation {
         for (int i = 0; i < clients.size(); i++) {
             if(clients.get(i).getCardNumber().equals(card)) counter++;
         }
-        if(counter == 1) return true;
-        else return false;
+        if(counter == 0) return false;
+        else return true;
     }
 
     public static boolean clientNameValidation(String name){

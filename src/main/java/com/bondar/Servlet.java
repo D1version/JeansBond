@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by ���� on 20.04.2016.
+ * Created by Влад on 20.04.2016.
  */
 public class Servlet extends HttpServlet {
     @Override
@@ -35,8 +35,6 @@ public class Servlet extends HttpServlet {
         if(req.getParameter("DELETE") != null){
             String[] rows = req.getParameterValues("checkBox");
             if(rows != null){
-//                req.setAttribute("checkBox", rows);
-//                req.setAttribute("acceptDelete","yes");
                 for (int i = 0; i < rows.length; i++) {
                     Client client = Factory.getInstance().getClientDAO().getClientByID(Integer.parseInt(rows[i]));
                     Factory.getInstance().getClientDAO().deleteClient(client);
@@ -137,6 +135,28 @@ public class Servlet extends HttpServlet {
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
             }
         }
+
+        if(req.getParameter("BACKUP") != null){
+            String userName = "jeansbond";
+            String password = "ASDqwe123";
+            String DBname = "jeansbond";
+            int processComplete = 0;
+            String executeCmd = "mysqldump -u "+userName+" -p"+password+" "+DBname+" -r D:\\backup.sql";
+            try {
+                Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+                    processComplete = runtimeProcess.waitFor();
+            } catch (InterruptedException e) {
+                   processComplete = 1;
+            } finally {
+                if (processComplete == 0) {
+                    req.setAttribute("BACKUP", "OK");
+                    req.getRequestDispatcher("index.jsp").forward(req, resp);
+                } else {
+                    req.setAttribute("BACKUP", "problem");
+                    req.getRequestDispatcher("index.jsp").forward(req, resp);
+                }
+            }
+        }
     }
 
     public void fullValidation(String id, String name, String secondName, String birthday,
@@ -166,6 +186,8 @@ public class Servlet extends HttpServlet {
             req.setAttribute("cardNumberProblem","problem");
             req.getRequestDispatcher("index.jsp").forward(req,resp);
 
+
+
         } else if(!Validation.phoneNumberValidation(phoneNumber)){
             req.setAttribute("phoneNumberProblem","problem");
             req.getRequestDispatcher("index.jsp").forward(req,resp);
@@ -187,36 +209,50 @@ public class Servlet extends HttpServlet {
             req.getRequestDispatcher("index.jsp").forward(req,resp);
 
         } else if(typeOfQuery == "add"){
-            Client client = new Client();
-            client.setName(name);
-            client.setSecondName(secondName);
-            client.setBirthday(birthday);
-            client.setRegistrationDate(registrationDate);
-            client.setCardNumber(cardNumber);
-            client.setPhoneNumber(phoneNumber);
-            client.setViber(viber);
-            client.setEmail(email);
-            client.setAmount(Integer.parseInt(amount));
-            client.setCounter(Integer.parseInt(counter));
+            if(Validation.cardAvailability(cardNumber)) {
+                req.setAttribute("cardAvailable", "problem");
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
+            } else {
 
-            Factory.getInstance().getClientDAO().addClient(client);
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
+                Client client = new Client();
+                client.setName(name);
+                client.setSecondName(secondName);
+                client.setBirthday(birthday);
+                client.setRegistrationDate(registrationDate);
+                client.setCardNumber(cardNumber);
+                client.setPhoneNumber(phoneNumber);
+                client.setViber(viber);
+                client.setEmail(email);
+                client.setAmount(Integer.parseInt(amount));
+                client.setCounter(Integer.parseInt(counter));
 
-        } else if(typeOfQuery == "save"){
+                Factory.getInstance().getClientDAO().addClient(client);
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
+            }
+
+        } else if(typeOfQuery == "save") {
             Client client = Factory.getInstance().getClientDAO().getClientByID(Integer.parseInt(id));
-            client.setName(name);
-            client.setSecondName(secondName);
-            client.setBirthday(birthday);
-            client.setRegistrationDate(registrationDate);
-            client.setCardNumber(cardNumber);
-            client.setPhoneNumber(phoneNumber);
-            client.setViber(viber);
-            client.setEmail(email);
-            client.setAmount(Integer.parseInt(amount));
-            client.setCounter(Integer.parseInt(counter));
 
-            Factory.getInstance().getClientDAO().updateClient(client);
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
+            if (client.getCardNumber().equals(cardNumber) | !Validation.cardAvailability(cardNumber)) {
+
+                    client.setName(name);
+                    client.setSecondName(secondName);
+                    client.setBirthday(birthday);
+                    client.setRegistrationDate(registrationDate);
+                    client.setCardNumber(cardNumber);
+                    client.setPhoneNumber(phoneNumber);
+                    client.setViber(viber);
+                    client.setEmail(email);
+                    client.setAmount(Integer.parseInt(amount));
+                    client.setCounter(Integer.parseInt(counter));
+
+                    Factory.getInstance().getClientDAO().updateClient(client);
+                    req.getRequestDispatcher("index.jsp").forward(req, resp);
+
+                } else {
+                req.setAttribute("cardAvailable", "problem");
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
+            }
         }
 
     }

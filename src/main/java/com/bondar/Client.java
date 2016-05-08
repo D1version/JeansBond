@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Влад on 20.04.2016.
+ * Created by пїЅпїЅпїЅпїЅ on 20.04.2016.
  */
 public class Client {
     private int ID;
