@@ -11,77 +11,61 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <html>
 <head>
-    <title>Jeans Bond</title>
+  <title>Jeans Bond</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <style>
-    td{
-      font-size: 150%;
-      text-align: center;
-      background-color: #b9ffae;
-    }
-    input {
-      display: inline-block;
-      color: black;
-      font-weight: 700;
-      text-decoration: none;
-      text-aling: center;
-      user-select: none;
-      padding: .5em 2em;
-      outline: none;
-      border: 2px solid;
-      border-radius: 1px;
-      transition: 0.2s;
-    }
-    input:hover { background: rgba(255,255,255,.2); }
-    input:active { background: white; }
-  </style>
+  <link rel="stylesheet" href="style.css" type="text/css"/>
+
 </head>
-<body style="color: #000000; background-color: #a6ffa1">
+<body>
 <form action = "check" method ="post">
-  <div align="center" style="margin-top: 10pt;">
-    <input type="submit" name="REFRESH" value="Обновить" size="50"/>
-    <input type="submit" name="NEWSALE" value="Дабавить продажу" size="50"/>
-    <input type="submit" name="EDIT" value="Добавить/Редактировать" size="50"/>
-    <input type="submit" name="SALES" value="История продаж" size="50"/>
-    <input type="submit" name="DELETE" onClick="return confirm('Вы подтверждаете удаление?');" value="Удалить" size="50"/>
-    <input type="submit" name="BACKUP" value="Сохранить БД" size="50"/>
+  <div class="but">
+    <div id="fixedBlock">
+      <input type="submit" name="REFRESH" value="Обновить" size="50"/>
+      <input type="submit" name="NEWSALE" value="Дабавить продажу" size="50"/>
+      <input type="submit" name="EDIT" value="Добавить/Редактировать" size="50"/>
+      <input type="submit" name="SALES" value="История продаж" size="50"/>
+      <input type="submit" name="DELETE" onClick="return confirm('Вы подтверждаете удаление?');" value="Удалить" size="50"/>
+      <input type="submit" name="BACKUP" value="Сохранить БД" size="50"/>
+    </div>
   </div>
-<table border="2" align="center">
-  <tbody>
-  <tr>
-    <td>Имя</td>
-    <td>Фамилия</td>
-    <td>Дата рождения</td>
-    <td>Дата регистрации</td>
-    <td>№ карты</td>
-    <td>Номер телефона</td>
-    <td>Viber</td>
-    <td>E-mail</td>
-    <td>Сумма покупок</td>
-    <td>Кол-во</td>
-    <td>B</td>
-  </tr>
-    <%
+  <div id="z">
+    <table>
+      <tbody>
+      <tr>
+        <td>№</td>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Дата рождения</td>
+        <td>Дата регистрации</td>
+        <td>Номер телефона</td>
+        <td>Viber</td>
+        <td>Сумма покупок</td>
+        <td>Кол-во</td>
+        <td>№ карты</td>
+        <td>B</td>
+      </tr>
+        <%
       ArrayList<Client> clients = (ArrayList<Client>) Factory.getInstance().getClientDAO().getAllClients();
       for (int i = 0; i <clients.size() ; i++){
         int id = clients.get(i).getID();%>
-    <tr>
-      <td><%= clients.get(i).getName()%></td>
-      <td><%= clients.get(i).getSecondName()%></td>
-      <td><%= clients.get(i).getBirthday()%></td>
-      <td><%= clients.get(i).getRegistrationDate()%></td>
-      <td><%= clients.get(i).getCardNumber()%></td>
-      <td><%= clients.get(i).getPhoneNumber()%></td>
-      <td><%= clients.get(i).getViber()%></td>
-      <td><%= clients.get(i).getEmail()%></td>
-      <td><%= clients.get(i).getAmount()%></td>
-      <td><%= clients.get(i).getCounter()%></td>
-      <td><input TYPE="checkbox" name="checkBox" VALUE="<%= id%>"/></td>
-    </tr>
-    <% } %>
-  </form>
-  </tbody>
+      <tr>
+        <td><%= i+1%></td>
+        <td><%= clients.get(i).getName()%></td>
+        <td><%= clients.get(i).getSecondName()%></td>
+        <td><%= clients.get(i).getBirthday()%></td>
+        <td><%= clients.get(i).getRegistrationDate()%></td>
+        <td><%= clients.get(i).getPhoneNumber()%></td>
+        <td><%= clients.get(i).getViber()%></td>
+        <td><%= clients.get(i).getAmount()%></td>
+        <td><%= clients.get(i).getCounter()%></td>
+        <td><%= clients.get(i).getCardNumber()%></td>
+        <td><input TYPE="checkbox" name="checkBox" VALUE="<%= id%>"/></td>
+      </tr>
+        <% } %>
+</form>
+</tbody>
 </table>
+</div>
 
 
 <%
@@ -92,7 +76,6 @@
   String cardNumber = (String) request.getAttribute("cardNumberProblem");
   String phoneNumber = (String) request.getAttribute("phoneNumberProblem");
   String viber = (String) request.getAttribute("viberProblem");
-  String email = (String) request.getAttribute("emailProblem");
   String amount = (String) request.getAttribute("amountProblem");
   String counter = (String) request.getAttribute("counterProblem");
   String delete = (String) request.getAttribute("DELETE");
@@ -109,7 +92,7 @@
 %>
 <script language="JavaScript">alert("Поле \"Имя\" не может быть пустым и сожержать цифры!")</script>
 <%
-  } else if (secondName == "problem"){
+} else if (secondName == "problem"){
 %>
 <script language="JavaScript">alert("Поле \"Фамилия\" не может быть пустым и сожержать цифры!")</script>
 <%
@@ -129,13 +112,9 @@
 %>
 <script language="JavaScript">alert("Номер телефона не может содержать символы и быть пустым, должен соответствовать шаблону: \"0*********\"!")</script>
 <%
-  } else if (viber == "problem"){
+} else if (viber == "problem"){
 %>
 <script language="JavaScript">alert("Поле \"Viber\" может содержать только \"+\" или \"-\"!")</script>
-<%
-} else if (email == "problem"){
-%>
-<script language="JavaScript">alert("Поле \"E-mail\" не может быть пустым и должно содержать символ \"@\"!")</script>
 <%
 } else if (amount == "problem"){
 %>
@@ -182,7 +161,7 @@
 <script language="JavaScript">alert("Клиент с такой картой уже есть в БД!")</script>
 <%
 
-}
+  }
 %>
 </body>
 </html>

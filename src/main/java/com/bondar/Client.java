@@ -3,9 +3,6 @@ package com.bondar;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by ���� on 20.04.2016.
- */
 public class Client {
     private int ID;
     public String name = null;
@@ -15,7 +12,6 @@ public class Client {
     public String phoneNumber = null;
     public String viber = null;
     public String cardNumber = null;
-    public String email = null;
     public int amount;
     public int counter = 1;
     private Set sales = new HashSet();
@@ -46,7 +42,6 @@ public class Client {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", viber='" + viber + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
-                ", email='" + email + '\'' +
                 ", amount=" + amount +
                 ", counter=" + counter +
                 '}';
@@ -58,14 +53,6 @@ public class Client {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public int getCounter() {

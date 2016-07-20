@@ -1,8 +1,6 @@
 package com.bondar;
 
-/**
- * Created by Влад on 04.05.2016.
- */
+
 public class Sales {
     private int ID;
     public Client client;

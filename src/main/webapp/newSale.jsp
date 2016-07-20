@@ -10,36 +10,15 @@
 <head>
   <title>New sale</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <style>
-    tr{
-      font-size: 150%;
-      text-align: center;
-      background-color: #b9ffae;
-    }
-    input {
-      display: inline-block;
-      color: black;
-      font-weight: 700;
-      text-decoration: none;
-      text-aling: center;
-      user-select: none;
-      padding: .5em 2em;
-      outline: none;
-      border: 2px solid;
-      border-radius: 1px;
-      transition: 0.2s;
-    }
-    input:hover { background: rgba(255,255,255,.2); }
-    input:active { background: white; }
-  </style>
+  <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
-<body style="color: #000000; background-color: #a6ffa1">
+<body>
 <form method="post">
   <div align="center" style="margin-top: 10pt;">
     <input type="submit" name="ADDSALE" value="Добавить" size="50">
     <input type="submit" name="CANCEL" value="Отмена" size="50">
   </div>
-  <table border="5" align="center">
+  <table>
     <tr><td>№ карты</td><td><input type="text" size="" name="SaleCardNumber" value=""></td></tr>
     <tr><td>Дата продажи</td><td><input type="text" size="" name="DateOfSale" value=""></td></tr>
     <tr><td>Сумма</td><td><input type="text" size="" name="SaleAmount" value=""></td></tr>

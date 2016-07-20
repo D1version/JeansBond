@@ -15,30 +15,9 @@
 <head>
   <title>Sales</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <style>
-    tr{
-      font-size: 150%;
-      text-align: center;
-      background-color: #b9ffae;
-    }
-    input {
-      display: inline-block;
-      color: black;
-      font-weight: 700;
-      text-decoration: none;
-      text-aling: center;
-      user-select: none;
-      padding: .5em 2em;
-      outline: none;
-      border: 2px solid;
-      border-radius: 1px;
-      transition: 0.2s;
-    }
-    input:hover { background: rgba(255,255,255,.2); }
-    input:active { background: white; }
-  </style>
+  <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
-<body style="color: #000000; background-color: #a6ffa1">
+<body>
 <form method="post">
   <div align="center" style="margin-top: 10pt;">
     <input type="submit" name="CANCEL" value="Назад" size="50">
@@ -46,20 +25,21 @@
   <%
     String[] rows = (String[]) request.getAttribute("checkBox");
     for (int j = 0; j < rows.length; j++) {
-    Client client = Factory.getInstance().getClientDAO().getClientByID(Integer.parseInt(rows[j]));
-    Set set = client.getSales();
+      Client client = Factory.getInstance().getClientDAO().getClientByID(Integer.parseInt(rows[j]));
+      Set set = client.getSales();
       ArrayList<Sales> sales = new ArrayList<Sales>();
       sales.addAll(set);
+      Integer salary = 0;
   %>
-  <table border="2" align="center">
+  <table>
     <tbody>
-      <tr>
-        <td>№ карты</td>
-        <td><%= client.getCardNumber()%></td>
-      </tr>
+    <tr>
+      <td>№ карты</td>
+      <td><%= client.getCardNumber()%></td>
+    </tr>
     </tbody>
   </table>
-  <table border="5" align="center">
+  <table>
     <tbody>
     <tr>
       <td>Дата продажи</td>
@@ -70,7 +50,7 @@
     </tr>
       <%
       for (int i = 0; i <sales.size() ; i++){
-
+        salary += sales.get(i).getAmount();
         %>
     <tr>
       <td><%= sales.get(i).getDateOfSale()%> </td>
@@ -80,6 +60,11 @@
       <td><%= sales.get(i).getSaler()%> </td>
     </tr>
       <%  }
+      %>
+    <tr><td>Всего:</td>
+      <td><%=salary%></td>
+    </tr>
+      <%
          }
        %>
 </form>

@@ -7,9 +7,7 @@ import org.hibernate.Session;
 
 import java.util.Collection;
 
-/**
- * Created by Влад on 20.04.2016.
- */
+
 public class ClientDAOImpl {
 
     public ClientDAOImpl(){}

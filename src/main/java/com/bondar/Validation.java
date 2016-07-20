@@ -7,9 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Created by ���� on 02.05.2016.
- */
+
 public class Validation {
 
     public static boolean cardAvailability(String card){
@@ -70,10 +68,6 @@ public class Validation {
         else return false;
     }
 
-    public static boolean emailValidation(String email){
-        if(email == null || email.length() == 0 || !email.contains("@")) return false;
-        else return true;
-    }
 
     public static boolean amountValidation(String amount){
         if(amount == null || amount.length() == 0 || amount.length() > 9) return false;

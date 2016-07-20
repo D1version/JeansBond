@@ -1,8 +1,6 @@
 package com.bondar.DAO;
 
-/**
- * Created by Влад on 20.04.2016.
- */
+
 public class Factory {
     private static Factory instance = null;
     private static ClientDAOImpl clientDAO = null;

@@ -6,9 +6,7 @@ import org.hibernate.Session;
 
 import java.util.Collection;
 
-/**
- * Created by Влад on 04.05.2016.
- */
+
 public class SalesDAOImpl {
 
     public SalesDAOImpl(){}

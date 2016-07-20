@@ -2,9 +2,7 @@ package com.bondar;
 
 import java.io.IOException;
 
-/**
- * Created by ���� on 20.04.2016.
- */
+
 public class Main {
     public static void main(String[] args) {
         String userName = "jeansbond";

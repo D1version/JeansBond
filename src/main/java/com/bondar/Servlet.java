@@ -79,11 +79,10 @@ public class Servlet extends HttpServlet {
             String cardNumber = req.getParameter("CardNumber");
             String phoneNumber = req.getParameter("PhoneNumber");
             String viber = req.getParameter("Viber");
-            String email = req.getParameter("Email");
             String amount = req.getParameter("Amount");
             String counter = req.getParameter("Counter");
 
-            fullValidation(null,name,secondName,birthday,registrationDate,cardNumber,phoneNumber,viber,email,
+            fullValidation(null,name,secondName,birthday,registrationDate,cardNumber,phoneNumber,viber,
                     amount, counter, req, resp, "add");
 
         }
@@ -102,11 +101,10 @@ public class Servlet extends HttpServlet {
             String cardNumber = req.getParameter("CardNumber");
             String phoneNumber = req.getParameter("PhoneNumber");
             String viber = req.getParameter("Viber");
-            String email = req.getParameter("Email");
             String amount = req.getParameter("Amount");
             String counter = req.getParameter("Counter");
 
-            fullValidation(id,name,secondName,birthday,registrationDate,cardNumber,phoneNumber,viber,email,
+            fullValidation(id,name,secondName,birthday,registrationDate,cardNumber,phoneNumber,viber,
                     amount, counter, req, resp, "save");
         }
 
@@ -144,9 +142,9 @@ public class Servlet extends HttpServlet {
             String executeCmd = "mysqldump -u "+userName+" -p"+password+" "+DBname+" -r D:\\backup.sql";
             try {
                 Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
-                    processComplete = runtimeProcess.waitFor();
+                processComplete = runtimeProcess.waitFor();
             } catch (InterruptedException e) {
-                   processComplete = 1;
+                processComplete = 1;
             } finally {
                 if (processComplete == 0) {
                     req.setAttribute("BACKUP", "OK");
@@ -161,7 +159,7 @@ public class Servlet extends HttpServlet {
 
     public void fullValidation(String id, String name, String secondName, String birthday,
                                String registrationDate, String cardNumber, String phoneNumber,
-                               String viber, String email, String amount, String counter,
+                               String viber, String amount, String counter,
                                HttpServletRequest req, HttpServletResponse resp,
                                String typeOfQuery)
             throws IOException, ServletException {
@@ -186,18 +184,12 @@ public class Servlet extends HttpServlet {
             req.setAttribute("cardNumberProblem","problem");
             req.getRequestDispatcher("index.jsp").forward(req,resp);
 
-
-
         } else if(!Validation.phoneNumberValidation(phoneNumber)){
             req.setAttribute("phoneNumberProblem","problem");
             req.getRequestDispatcher("index.jsp").forward(req,resp);
 
         } else if(!Validation.viberValidation(viber)){
             req.setAttribute("viberProblem","problem");
-            req.getRequestDispatcher("index.jsp").forward(req,resp);
-
-        } else if(!Validation.emailValidation(email)){
-            req.setAttribute("emailProblem","problem");
             req.getRequestDispatcher("index.jsp").forward(req,resp);
 
         } else if(!Validation.amountValidation(amount)){
@@ -215,14 +207,13 @@ public class Servlet extends HttpServlet {
             } else {
 
                 Client client = new Client();
-                client.setName(name);
-                client.setSecondName(secondName);
+                client.setName(name.substring(0,1).toUpperCase()+name.substring(1));
+                client.setSecondName(secondName.substring(0,1).toUpperCase()+secondName.substring(1));
                 client.setBirthday(birthday);
                 client.setRegistrationDate(registrationDate);
                 client.setCardNumber(cardNumber);
                 client.setPhoneNumber(phoneNumber);
                 client.setViber(viber);
-                client.setEmail(email);
                 client.setAmount(Integer.parseInt(amount));
                 client.setCounter(Integer.parseInt(counter));
 
@@ -235,21 +226,20 @@ public class Servlet extends HttpServlet {
 
             if (client.getCardNumber().equals(cardNumber) | !Validation.cardAvailability(cardNumber)) {
 
-                    client.setName(name);
-                    client.setSecondName(secondName);
-                    client.setBirthday(birthday);
-                    client.setRegistrationDate(registrationDate);
-                    client.setCardNumber(cardNumber);
-                    client.setPhoneNumber(phoneNumber);
-                    client.setViber(viber);
-                    client.setEmail(email);
-                    client.setAmount(Integer.parseInt(amount));
-                    client.setCounter(Integer.parseInt(counter));
+                client.setName(name.substring(0,1).toUpperCase()+name.substring(1));
+                client.setSecondName(secondName.substring(0,1).toUpperCase()+secondName.substring(1));
+                client.setBirthday(birthday);
+                client.setRegistrationDate(registrationDate);
+                client.setCardNumber(cardNumber);
+                client.setPhoneNumber(phoneNumber);
+                client.setViber(viber);
+                client.setAmount(Integer.parseInt(amount));
+                client.setCounter(Integer.parseInt(counter));
 
-                    Factory.getInstance().getClientDAO().updateClient(client);
-                    req.getRequestDispatcher("index.jsp").forward(req, resp);
+                Factory.getInstance().getClientDAO().updateClient(client);
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
 
-                } else {
+            } else {
                 req.setAttribute("cardAvailable", "problem");
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
             }
@@ -258,54 +248,50 @@ public class Servlet extends HttpServlet {
     }
 
     public void newSaleValidation(String cardNumber, String dateOfSale, String saleAmount,
-                                    String jeansNumber, String jeansSize, String saler,
-                                    HttpServletRequest req, HttpServletResponse resp)
+                                  String jeansNumber, String jeansSize, String saler,
+                                  HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
 
-            if(!Validation.cardValidation(cardNumber)){
-                req.setAttribute("cardNumberProblem","problem");
-                req.getRequestDispatcher("index.jsp").forward(req,resp);
+        if(!Validation.cardValidation(cardNumber)){
+            req.setAttribute("cardNumberProblem","problem");
+            req.getRequestDispatcher("index.jsp").forward(req,resp);
 
-            } else if(!Validation.cardAvailability(cardNumber)){
-                req.setAttribute("cardAbsence", "problem");
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
+        } else if(!Validation.cardAvailability(cardNumber)){
+            req.setAttribute("cardAbsence", "problem");
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
 
-            } else if(!Validation.dateValidation(dateOfSale)){
-                req.setAttribute("saleDateProblem","problem");
-                req.getRequestDispatcher("index.jsp").forward(req,resp);
+        } else if(!Validation.dateValidation(dateOfSale)){
+            req.setAttribute("regDateProblem","problem");
+            req.getRequestDispatcher("index.jsp").forward(req,resp);
 
-            } else if(!Validation.amountValidation(saleAmount)){
-                req.setAttribute("amountProblem","problem");
-                req.getRequestDispatcher("index.jsp").forward(req,resp);
+        } else if(!Validation.amountValidation(saleAmount)){
+            req.setAttribute("amountProblem","problem");
+            req.getRequestDispatcher("index.jsp").forward(req,resp);
 
-            } else if(!Validation.amountValidation(jeansNumber)){
-                req.setAttribute("jeansNumberProblem","problem");
-                req.getRequestDispatcher("index.jsp").forward(req,resp);
+        } else if(!Validation.amountValidation(jeansSize)){
+            req.setAttribute("jeansSizeProblem","problem");
+            req.getRequestDispatcher("index.jsp").forward(req,resp);
 
-            } else if(!Validation.amountValidation(jeansSize)){
-                req.setAttribute("jeansSizeProblem","problem");
-                req.getRequestDispatcher("index.jsp").forward(req,resp);
+        } else if(!Validation.clientNameValidation(saler)){
+            req.setAttribute("salerProblem","problem");
+            req.getRequestDispatcher("index.jsp").forward(req,resp);
 
-            } else if(!Validation.clientNameValidation(saler)){
-                req.setAttribute("salerProblem","problem");
-                req.getRequestDispatcher("index.jsp").forward(req,resp);
+        } else{
+            Sales sale = new Sales();
+            Client client = Factory.getInstance().getClientDAO().getClientByCardNumber(Integer.parseInt(cardNumber));
+            sale.setClient(client);
+            sale.setDateOfSale(dateOfSale);
+            sale.setJeansSize(jeansSize);
+            sale.setJeansNumber(jeansNumber);
+            sale.setAmount(Integer.parseInt(saleAmount));
+            sale.setSaler(saler);
+            client.setAmount(client.getAmount()+Integer.parseInt(saleAmount));
+            client.setCounter(client.getCounter()+1);
 
-            } else{
-                Sales sale = new Sales();
-                Client client = Factory.getInstance().getClientDAO().getClientByCardNumber(Integer.parseInt(cardNumber));
-                sale.setClient(client);
-                sale.setDateOfSale(dateOfSale);
-                sale.setJeansSize(jeansSize);
-                sale.setJeansNumber(jeansNumber);
-                sale.setAmount(Integer.parseInt(saleAmount));
-                sale.setSaler(saler);
-                client.setAmount(client.getAmount()+Integer.parseInt(saleAmount));
-                client.setCounter(client.getCounter()+1);
-
-                Factory.getInstance().getClientDAO().updateClient(client);
-                Factory.getInstance().getSalesDAO().addSales(sale);
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
-            }
+            Factory.getInstance().getClientDAO().updateClient(client);
+            Factory.getInstance().getSalesDAO().addSales(sale);
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
+        }
     }
 
 }

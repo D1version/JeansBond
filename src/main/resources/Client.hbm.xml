@@ -13,7 +13,6 @@
         <property column="CardNumber" name="cardNumber" type="java.lang.String"/>
         <property column="PhoneNumber" name="phoneNumber" type="java.lang.String"/>
         <property column="Viber" name="viber" type="java.lang.String"/>
-        <property column="Email" name="email" type="java.lang.String"/>
         <property column="Amount" name="amount" type="java.lang.Integer"/>
         <property column="Counter" name="counter" type="java.lang.Integer"/>
 

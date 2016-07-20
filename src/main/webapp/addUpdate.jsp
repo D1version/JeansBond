@@ -12,30 +12,9 @@
 <head>
   <title>Edit</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <style>
-    tr{
-      font-size: 150%;
-      text-align: center;
-      background-color: #b9ffae;
-    }
-    input {
-      display: inline-block;
-      color: black;
-      font-weight: 700;
-      text-decoration: none;
-      text-aling: center;
-      user-select: none;
-      padding: .5em 2em;
-      outline: none;
-      border: 2px solid;
-      border-radius: 1px;
-      transition: 0.2s;
-    }
-    input:hover { background: rgba(255,255,255,.2); }
-    input:active { background: white; }
-  </style>
+  <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
-<body style="color: #000000; background-color: #a6ffa1">
+<body>
 <%
   String[] rows = (String[]) request.getAttribute("checkBox");
   if (rows == null){
@@ -45,17 +24,16 @@
     <input type="submit" name="ADD" value="Добавить" size="50">
     <input type="submit" name="CANCEL" value="Отмена" size="50">
   </div>
-  <table border="5" align="center">
-    <tr><td>Имя</td><td><input type="text" size="" name="Name" value=""></td></tr>
-    <tr><td>Фамилия</td><td><input type="text" size="" name="SecondName" value=""></td></tr>
-    <tr><td>Дата рождения</td><td><input type="text" size="" name="Birthday" value=""></td></tr>
-    <tr><td>Дата регистрации</td><td><input type="text" size="" name="RegistrationDate" value=""></td></tr>
-    <tr><td>№ карты</td><td><input type="text" size="" name="CardNumber" value=""></td></tr>
-    <tr><td>Номер телефона</td><td><input type="text" size="" name="PhoneNumber" value=""></td></tr>
-    <tr><td>Viber</td><td><input type="text" size="" name="Viber" value=""></td></tr>
-    <tr><td>E-mail</td><td><input type="text" size="" name="Email" value=""></td></tr>
-    <tr><td>Сумма покупок</td><td><input type="text" size="" name="Amount" value=""></td></tr>
-    <tr><td>Кол-во</td><td><input type="text" size="" name="Counter" value=""></td></tr>
+  <table>
+    <tr><td>Имя</td><td><input type="text" size="" placeholder="Иван" name="Name" value=""></td></tr>
+    <tr><td>Фамилия</td><td><input type="text" size="" placeholder="Иванов" name="SecondName" value=""></td></tr>
+    <tr><td>Дата рождения</td><td><input type="text" size="" placeholder="дд-мм-гггг" name="Birthday" value=""></td></tr>
+    <tr><td>Дата регистрации</td><td><input type="text" size="" placeholder="дд-мм-гггг" name="RegistrationDate" value=""></td></tr>
+    <tr><td>№ карты</td><td><input type="text" size="" placeholder="1234" name="CardNumber" value=""></td></tr>
+    <tr><td>Номер телефона</td><td><input type="text" size="" placeholder="0123456789" name="PhoneNumber" value=""></td></tr>
+    <tr><td>Viber</td><td><input type="text" size="" placeholder="+ или -" name="Viber" value=""></td></tr>
+    <tr><td>Сумма покупок</td><td><input type="text" size="" placeholder="12345" name="Amount" value=""></td></tr>
+    <tr><td>Кол-во</td><td><input type="text" size="" placeholder="3" name="Counter" value=""></td></tr>
   </table>
 </form>
 <%
@@ -68,9 +46,9 @@
     <input type="submit" name="CANCEL" value="Отмена" size="30">
   </div>
   <%
-      int id = client.getID();
+    int id = client.getID();
   %>
-  <table border="5" align="center">
+  <table>
     <tr><td>Имя</td><td><input type="text" size="" name="Name" value="<%= client.getName()%>"></td></tr>
     <tr><td>Фамилия</td><td><input type="text" size="" name="SecondName" value="<%= client.getSecondName()%>"></td></tr>
     <tr><td>Дата рождения</td><td><input type="text" size="" name="Birthday" value="<%= client.getBirthday()%>"></td></tr>
@@ -78,7 +56,6 @@
     <tr><td>№ карты</td><td><input type="text" size="" name="CardNumber" value="<%= client.getCardNumber()%>"></td></tr>
     <tr><td>Номер телефона</td><td><input type="text" size="" name="PhoneNumber" value="<%= client.getPhoneNumber()%>"></td></tr>
     <tr><td>Viber</td><td><input type="text" size="" name="Viber" value="<%= client.getViber()%>"></td></tr>
-    <tr><td>E-mail</td><td><input type="text" size="" name="Email" value="<%= client.getEmail()%>"></td></tr>
     <tr><td>Сумма покупок</td><td><input type="text" size="" name="Amount" value="<%= client.getAmount()%>"></td></tr>
     <tr><td>Кол-во</td><td><input type="text" size="" name="Counter" value="<%= client.getCounter()%>"></td></tr>
   </table>
