@@ -1,0 +1,21 @@
+<Context>
+
+    <Resource name="jdbc/jeansbond"
+
+              auth="Container"
+
+              type="javax.sql.DataSource"
+
+              username="jeansbond"
+
+              password="ASDqwe123"
+
+              driverClassName="com.mysql.jdbc.Driver"
+
+              url="jdbc:mysql:/localhost:3306/jeansbond"
+
+              maxActive="15"
+
+              maxIdle="3"/>
+
+</Context>
